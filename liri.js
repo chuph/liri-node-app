@@ -67,19 +67,25 @@ function mytweets() {
 // }
 
 function spotifyThis() {
+	if (choice == null) {
+		choice = 'the sign'
+	}
 	spotify.search({ type: 'track', query: choice }, function(err, data) {
 		if(err) {
 			return console.log('Error occurred: ' + err);
 		}
-		console.log(JSON.stringify(data, null, 2));
+		console.log('Artist: ' + JSON.stringify(data.tracks.items[0].album.artists[0].name));
+		console.log('Song Name: ' + JSON.stringify(data.tracks.items[0].name));
+		console.log('Preview Song: ' + JSON.stringify(data.tracks.items[0].preview_url));
+		console.log('Album Name: ' + JSON.stringify(data.tracks.items[0].album.name));
+
 		var parseObject = JSON.stringify(data, null, 2);
 
 		fs.writeFile('spotifyObject.json', parseObject, (err)=> {
 			if(err){
 				return console.log("Spotify Object Error: " + err);
 			}
-		console.log(parseObject.tracks.items[0].artists[0].name);
-
+			// console.log(parseObject.data.tracks.items[0].album.artists[0].name);
 		});
 	});
 }
@@ -123,8 +129,9 @@ function random() {
 		}
 		else {
 			var dataA = data.split(',');
-			movieWhat(dataA[1]);
+			spotifyThis(dataA[1]);
 		}
+		console.log(dataA[1]);
 
 	});
 }
