@@ -68,7 +68,7 @@ function mytweets() {
 
 function spotifyThis() {
 	if (choice == null) {
-		choice = 'the sign'
+		choice = 'the sign ace'
 	}
 	spotify.search({ type: 'track', query: choice }, function(err, data) {
 		if(err) {
